@@ -90,3 +90,50 @@
     ```
 
 - `.isRequired` 까지 설정하면 값이 없을 때 console창에 경고가 뜬다
+
+## 3.4 state
+
+- **컴포넌트 내부**에서 바뀔 수 있는 값
+- `this.setState` 를 통해 state 값을 업데이트 할 때는 상태가 **비동기적**으로 업데이트된다
+
+    ```jsx
+    <button onClick={() => {
+      // 클릭되면 함수가 호출된다.
+      // state에 새로운 값을 넣을 수 있다
+      this.setState({number: number+1});
+      this.setState({number: this.state.number + 1});
+    }}>
+      +1
+    </button>
+    ```
+
+  위의 결과는 number가 2씩 커질 것 같지만, setState를 이용해 state값을 바꾼다고 해서 바로 값이 바뀌지 않는다…
+
+- `setState()` 에 객체 대신 함수를 인자로 넣어주자! (props는 생략 가능)
+
+    ```jsx
+    this.setState((prevState[, props]) => {
+      return {
+        number: prevState.number + 1
+      }
+    });
+    ```
+
+- 값이 **업데이트 되고 난 뒤** 특정 작업을 실행하고 싶다면?
+
+  `setState`의 **두번째 파라미터**로 **콜백 함수**를 등록하자
+
+- **함수형 컴포넌트**에서는 `useState Hooks`를 이용한다
+
+## 3.5 state를 사용할 때 주의사항
+
+- state의 값을 바꿀 때는 **세터 함수**를 사용해야 한다.
+- 배열이나 객체를 업데이트 해야할 때는?
+  1. 배열이나 객체 **사본**을 만들기
+  2. 그 사본에 값을 **업데이트** 하기
+  3. 그 사본의 상태를 **세터 함수**를 통해 업데이트
+- 사본을 만들 때
+  - `spread operator(…)`
+  - `concat()` : 추가
+  - `filter()` : 제거
+  - `map()` : 업데이트
