@@ -40,12 +40,25 @@
     ...
     
     render () {
-    	return (
-    		...
-    		<input ref={this.input} />
-    		...
-    	)
+        return (
+            ...
+            <input ref={this.input} />
+            ...
+        )
     }
     ```
 
 - ref를 설정해준 DOM에 접근하려면 `this.ref.current` 를 조회해야 한다
+
+## 5.3 컴포넌트에 ref 달기
+
+- 컴포넌트 **내부에 있는 DOM**을 컴포넌트 **외부**에서 **사용**할 때 씀
+
+    ```jsx
+    <MyComponent 
+    	ref={(ref) => {this.myComponent = ref}}
+    />
+    ```
+
+- `MyComponent` 내부의 **메서드** 및 **멤버 변수**에도 접근할 수 있음
+  - == **내부의 ref**에도 접근할 수 있음
