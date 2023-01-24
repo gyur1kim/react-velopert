@@ -13,3 +13,39 @@
     - **스크롤 박스** 조작하기
     - **Canvas 요소**에 그림 그리기
     - 등…
+
+## 5.2 ref 사용
+
+### 콜백 함수를 통한 ref 설정
+
+- ref를 만드는 가장 기본적인 방법
+- **ref를 달고자 하는 요소**에 ref라는 **콜백 함수**를 **props로 전달**하기
+  - 이 콜백 함수는 **ref 값**을 **파라미터**로 전달받음
+  - 함수 내부에서 파라미터로 받은 ref를 **컴포넌트의 멤버 변수**로 설정해준다.
+
+    ```jsx
+    <input ref={(ref) => {this.input = ref}} />
+    ```
+
+
+### createRef를 통한 ref 설정
+
+- 리액트 v16.3부터 작동한다..
+- 우선 컴포넌트 내부에서 멤버 변수로 `React.createRef()` 를 담아주어야 함
+- 그리고 **해당 멤버 변수**를 ref를 달고자 하는 **요소**에 **ref props**로 넣어주면 됨
+
+    ```jsx
+    input = React.createRef();
+    
+    ...
+    
+    render () {
+    	return (
+    		...
+    		<input ref={this.input} />
+    		...
+    	)
+    }
+    ```
+
+- ref를 설정해준 DOM에 접근하려면 `this.ref.current` 를 조회해야 한다
