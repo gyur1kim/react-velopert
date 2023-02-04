@@ -46,3 +46,17 @@
 
 </div>
 </details>
+
+
+<details>
+<summary><h3>6장. 컴포넌트 반복</h3></summary>
+<div markdown="1">       
+
+- 6-1. [자바스크립트 배열의 map() 함수](https://github.com/gyur1kim/react-velopert/tree/master/06-repeat-component#61-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EB%B0%B0%EC%97%B4%EC%9D%98-map-%ED%95%A8%EC%88%98)
+
+- 6-3. [key](https://github.com/gyur1kim/react-velopert/tree/master/06-repeat-component#63-key)
+
+- 6-4. [ref 사용](https://github.com/gyur1kim/react-velopert/tree/master/06-repeat-component#64-%EC%9D%91%EC%9A%A9)
+
+</div>
+</details>
