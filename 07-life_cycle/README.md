@@ -87,3 +87,5 @@
   - error : 파라미터에 어떤 에러가 발생했는지 알려줌
   - info : 어디에 있는 코드에서 오류가 발생했는지에 대한 정보를 줌
   - 단점 : 자신에게 발생한 에러는 잡아낼 수 없음, children에게 전달되는 컴포넌트에서 발생하는 에러만 잡아낼 수 있음!!
+  -
+    ![image](https://user-images.githubusercontent.com/96561861/218264134-bf17fa84-edb5-43c8-b0d4-eacd7ee5ea90.png)
