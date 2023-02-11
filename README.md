@@ -12,7 +12,7 @@
 
 - 3-2. [첫 컴포넌트 생성](https://github.com/gyur1kim/react-velopert/tree/master/03-component#32-%EC%B2%AB-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%83%9D%EC%84%B1)
 
-- 3-3.[props](https://github.com/gyur1kim/react-velopert/tree/master/03-component#33-props)
+- 3-3. [props](https://github.com/gyur1kim/react-velopert/tree/master/03-component#33-props)
 
 - 3-4. [state](https://github.com/gyur1kim/react-velopert/tree/master/03-component#34-state)
 
@@ -57,6 +57,20 @@
 - 6-3. [key](https://github.com/gyur1kim/react-velopert/tree/master/06-repeat-component#63-key)
 
 - 6-4. [ref 사용](https://github.com/gyur1kim/react-velopert/tree/master/06-repeat-component#64-%EC%9D%91%EC%9A%A9)
+
+</div>
+</details>
+
+
+<details>
+<summary><h3>7장. 컴포넌트의 라이프사이클 메서드</h3></summary>
+<div markdown="1">       
+
+- 7-0. [라이프사이클 개요](https://github.com/gyur1kim/react-velopert/tree/master/07-life_cycle#7-0-%EA%B0%9C%EC%9A%94)
+
+- 7-1. [라이프사이클 메서드의 이해](https://github.com/gyur1kim/react-velopert/tree/master/07-life_cycle#7-1-%EB%9D%BC%EC%9D%B4%ED%94%84%EC%82%AC%EC%9D%B4%ED%81%B4-%EB%A9%94%EC%84%9C%EB%93%9C%EC%9D%98-%EC%9D%B4%ED%95%B4)
+
+- 7-2. [라이프사이클 메서드 살펴보기](https://github.com/gyur1kim/react-velopert/tree/master/07-life_cycle#7-2-%EB%9D%BC%EC%9D%B4%ED%94%84%EC%82%AC%EC%9D%B4%ED%81%B4-%EB%A9%94%EC%84%9C%EB%93%9C-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0)
 
 </div>
 </details>
