@@ -97,3 +97,32 @@ const getAverage = numbers => {
 // list의 값이 변할 때만 getAverage 함수가 호출됨
 const avg = useMemo(() => getAverage(list), [list])
 ```
+
+
+## 8.5 useCallback
+
+- useMemo와 상당히 비슷한 함수
+- 만들어둔 함수를 재사용할 수 있음!
+  - 컴포넌트가 재렌더링되면 함수는 새롭게 만들어진다!
+  - 기존의 함수가 아님
+- `useCallback`
+  - **첫 번째 파라미터** : 생성하고 싶은 함수
+  - **두 번째 파라미터** : `deps` , 어떤 값이 바뀌었을 때 함수를 새로 생성해야 하는지 명시
+    - 함수 내부에서 상태 값에 의존해야 할 때는 그 값을 반드시 두 번째 파라미터 안에 포함시키기
+
+      ```jsx
+      // deps가 빈 배열 : 컴포넌트가 처음 렌더링될 때만 함수 생성
+      // 기존의 값을 조회하지 않고(함수 내부에서 상태 값에 의존하지 않음) 바로 설정
+      // 따라서 deps에 값이 필요하지 않음
+      const onChange = useCallback(e => {
+        setNumber(e.target.value);
+      }, [])
+      
+      // number혹은 list가 바뀌었을 때만 함수 생성
+      // 기존의 number와 list를 조회하여 nextList를 생성하기 때문에 deps안에 꼭 넣어야 
+      const onInsert = useCallback(() => {
+        const nextList = list.concat(parseInt(number));
+        setList(nextList);
+        setNumber('');
+      }, [list, number])
+      ```
