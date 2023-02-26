@@ -42,6 +42,7 @@
 - **언마운트 되기 전**, **업데이트 되기 직전**에 작업을 수행하고 싶을 때 뒷정리 함수 반환
 - `뒷정리 함수` + `빈 deps` ⇒ 컴포넌트가 **언마운트 될 때만** 뒷정리 함수 호출
 
+
 ## 8.3 useReducer
 
 - `useState` 보다 더 **다양한 컴포넌트 상황**에 따라 **다양한 상태**를 **다른 값**으로 업데이트 해주고 싶을 때 사용
@@ -75,3 +76,24 @@
 
 - `input` **상태 관리**하기
     - input 태그에 name 값을 할당하고, `e.target.name` 을 참조하면 됨
+
+
+## 8.4 useMemo
+
+- 함수형 컴포넌트 내부에서 발생하는 **연산**을 최적화할 수 있음
+- 컴포넌트가 재렌더링되면 연산하는 함수도 재호출돼서 불필요한 계산을 반복하게 됨
+- **useMemo**
+  - 렌더링하는 과정에서 **특정 값**이 바뀌었을 때만 연산을 실행(deps)
+  - 원하는 값이 바뀌지 않았다면 이전에 연산했던 결과를 다시 사용
+
+```jsx
+const getAverage = numbers => {
+  console.log('평균값 계산하는 중...');
+  if (numbers.length === 0) return 0;
+  const sum = numbers.reduce((acc, cur) => acc + cur);
+  return sum / numbers.length;
+}
+
+// list의 값이 변할 때만 getAverage 함수가 호출됨
+const avg = useMemo(() => getAverage(list), [list])
+```
