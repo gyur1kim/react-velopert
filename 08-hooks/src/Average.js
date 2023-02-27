@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useRef } from 'react';
 
 // 얘한테 useMemo 사용할 거야
 const getAverage = numbers => {
@@ -11,6 +11,7 @@ const getAverage = numbers => {
 function Average() {
   const [list, setList] = useState([]);
   const [number, setNumber] = useState('');
+  const inputEl = useRef(null);
 
   // deps가 빈 배열 : 컴포넌트가 처음 렌더링될 때만 함수 생성
   const onChange = useCallback(e => {
@@ -21,13 +22,14 @@ function Average() {
     const nextList = list.concat(parseInt(number));
     setList(nextList);
     setNumber('');
+    inputEl.current.focus();
   }, [list, number])
   // list의 값이 변할 때만 getAverage 함수가 호출됨
   const avg = useMemo(() => getAverage(list), [list])
 
   return (
     <div>
-      <input type="text" value={number} onChange={onChange} />
+      <input type="text" value={number} onChange={onChange} ref={inputEl} />
       <button onClick={onInsert}>등록하기</button>
       <ul>
         {list.map((val, idx) =>
