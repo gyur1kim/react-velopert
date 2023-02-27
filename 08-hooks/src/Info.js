@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useReducer } from 'react';
+// 커스텀 훅 사용하기
+import useInputs from "./useInputs";
 
-function reducer (state, action) {
-  return {
-    ...state,
-    [action.name] : action.value
-  }
-}
+// function reducer (state, action) {
+//   return {
+//     ...state,
+//     [action.name] : action.value
+//   }
+// }
 
 function Info() {
   // const [name, setName] = useState('');
@@ -25,13 +27,19 @@ function Info() {
   //   setNickname(e.target.value);
   // }
 
-  const [state, dispatch] = useReducer(reducer, {name: '', nickname: ''})
+  // const [state, dispatch] = useReducer(reducer, {name: '', nickname: ''})
   // 구조분해할당
-  const { name, nickname } = state;
+  // const { name, nickname } = state;
+  //
+  // const onChange = e => {
+  //   dispatch(e.target)
+  // }
 
-  const onChange = e => {
-    dispatch(e.target)
-  }
+  const [state, onChange] = useInputs({
+    name: '',
+    nickname: ''
+  });
+  const { name, nickname } = state;
 
   return (
     <div>
