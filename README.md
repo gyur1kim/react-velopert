@@ -78,12 +78,18 @@
 
 
 <details>
-<summary><h3>8장. 리액트훅</h3></summary>
+<summary><h3>8장. 리액트 훅</h3></summary>
 <div markdown="1">       
 
 - 8-1. [useState](https://github.com/gyur1kim/react-velopert/tree/master/08-hooks#81-usestate)
 
 - 8-2. [useEffect](https://github.com/gyur1kim/react-velopert/tree/master/08-hooks#82-useeffect)
+
+- 8-3. [useReducer](https://github.com/gyur1kim/react-velopert/tree/master/08-hooks#83-usereducer)
+
+- 8-4. [useMemo](https://github.com/gyur1kim/react-velopert/tree/master/08-hooks#84-usememo)
+
+- 8-5. [useCallback](https://github.com/gyur1kim/react-velopert/tree/master/08-hooks#85-usecallback)
 
 </div>
 </details>
