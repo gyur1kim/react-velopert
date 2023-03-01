@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+## 9.1 CSS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- 가장 기본적인 방식
+- CSS 클래스를 **중복되지 않게** 만들기!
+  1. 이름 짓는 **규칙**을 활용하기
+    - `컴포넌트 이름-클래스`
+      - `App-header`
+    - BEM 네이밍, 해당 클래스의 용도를 명황하기 작성하기
+      - `card__title-primary`
+  2. **CSS selector**를 사용하기
 
-## Available Scripts
+## 9.2 Sass
 
-In the project directory, you can run:
+- **S**yntactically **A**wesome **S**tyle **S**heets, CSS 전처리기
+- 복잡한 작업을 쉽게 할 수 있도록 해줌
+- 스타일 코드의 재활용성을 높여줌
+- 코드의 가독성을 높여 유지 보수를 더욱 쉽게 해줌
+- 확장자 : `.scss` , `.sass`
+  - `.sass`
 
-### `npm start`
+      ```sass
+      $font-stack: Helvetica, sans-serif
+      $primary-color: #333
+      
+      body
+        font: 100% $font-stack
+        color: $primary-color
+      ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  - .scss → 세미콜론과 중괄호 사용
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+      ```scss
+      $font-stack: Helvetica, sans-serif;
+      $primary-color: #333;
+      
+      body {
+        font: 100% $font-stack;
+        color: $primary-color;
+      }
+      ```
 
-### `npm test`
+- `npm install node-sass`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 변수 선언하기
 
-### `npm run build`
+`$name: value`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 색이든, 크기든 뭐든 변수로 지정해놓고 갖다쓸 수 있음
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```scss
+    $red: #fa5252;
+    $orange: #fd7e14;
+    $yellow: #fcc419;
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### @mixin
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- 재사용되는 스타일 블록을 함수처럼 사용할 수 있음
+- 정의하기 : `@mixin name($args) { CSS style }`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```scss
+    @mixin square($size) {
+      $calculated: 32px * $size;
+      width: $calculated;
+      height: $calculated;
+    }
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- 호출하기 : `@include name`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    ```scss
+    red {
+      background: $red;
+      @include square(1);
+    }
+    ```
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### utils 함수 분리하기
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 여러 파일에서 사용될 수 있는 Sass 변수 및 믹스인은 다른 파일로 따로 분리하여 작성
+- 필요한 곳에서 쉽게 불러와 사용할 수 있음!
+- 분리한 utils.scss 파일은 `@import` 하여 사용하기
 
-### Code Splitting
+  `@import './styles/utils';`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### node_modules 에서 라이브러리 불러오기
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 물결문자 `~` 를 이용하면 상대경로를 이용하지 않아도 됨!
+  - `‘../../../node_modules/library/styles’` ⇒ `‘~library/styles’`
+- 물결 문자를 사용하면 자동으로 node_modules에서 라이브러리 디렉터리를 탐지하여 스타일을 불러올 수 있음
