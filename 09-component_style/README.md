@@ -91,3 +91,53 @@
 - 물결문자 `~` 를 이용하면 상대경로를 이용하지 않아도 됨!
   - `‘../../../node_modules/library/styles’` ⇒ `‘~library/styles’`
 - 물결 문자를 사용하면 자동으로 node_modules에서 라이브러리 디렉터리를 탐지하여 스타일을 불러올 수 있음
+
+
+## 9.3 CSS Module
+
+- **클래스 이름**을 **고유한 값**, `[파일이름]_[클래스 이름]__[해시값]` 형태로 자동으로 만들어 컴포넌트 스타일 클래스 이름이 **중첩되는 현상을 방지**하는 기술
+- `.module.css` 확장자로 파일을 저장하면 CSS Module이 적용된다
+- 해당 클래스는 스타일을 **직접 불러온 컴포넌트 내부에서만 작동**함
+- 만약 전역에서 사용된다면 `:global` 을 앞에 입력하여 글로벌 CSS임을 명시하자.
+
+```css
+// CSSModule.module.css
+.wrapper {
+  background: black;
+  padding: 1rem;
+  color: white;
+  font-size: 2rem;
+}
+
+:global .something{
+  font-weight: 800;
+  color: aqua;
+}
+```
+
+```jsx
+// CSSModule.js
+import React from 'react';
+import styles from './CSSModule.module.css'
+
+function CssModule() {
+  return (
+    <div className={styles.wrapper}>
+      안녕하세요 저는 <span className="something">CSS Module!</span>
+    </div>
+  );
+}
+
+export default CssModule;
+```
+
+- module 파일에서는 **객체**를 하나 전달한다.
+  - **객체**에는, 스타일 파일에서 사용한 **클래스 이름**과 해당 이름을 **고유화한 이름**이 `키-값 형태`로 들어있다.
+- 클래스를 사용하려면, 객체에 접근하여 사용하면 됨
+  - `className={styles.wrapper}`
+  - `:global` 로 선언된 클래스는 그냥 문자열로 넣어주면 됨
+  - 클래스는 백틱을 이용하여 여러 개를 작성할 수 있음
+
+      ```jsx
+      <div className={`${styles.wrapper} ${styles.inverted}`} />
+      ```
