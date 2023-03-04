@@ -133,6 +133,14 @@ export default CssModule;
 
 - module 파일에서는 **객체**를 하나 전달한다.
   - **객체**에는, 스타일 파일에서 사용한 **클래스 이름**과 해당 이름을 **고유화한 이름**이 `키-값 형태`로 들어있다.
+
+    ```jsx
+      // Object
+      {
+        inverted: "CSSModule_inverted__FbQ7e",
+        wrapper: "CSSModule_wrapper__jtzoB"
+      }
+    ```
 - 클래스를 사용하려면, 객체에 접근하여 사용하면 됨
   - `className={styles.wrapper}`
   - `:global` 로 선언된 클래스는 그냥 문자열로 넣어주면 됨
@@ -140,4 +148,39 @@ export default CssModule;
 
       ```jsx
       <div className={`${styles.wrapper} ${styles.inverted}`} />
+      ```
+### 응용 - classnames
+
+- CSS 클래스를 조건부로 설정할 때 매우 유용한 라이브러리
+- `npm install classnames`
+- 불러오기 : `import classNames from ‘classnames’`
+- 사용하기
+
+    ```jsx
+    classNames('one', 'two');            => one two
+    classNames('one', { two: true });    => one two
+    classNames('one', { two: false });   => one
+    
+    const myClass = 'hello'
+    classNames('one', myClass, { myCondition: false });   => one hello
+    ```
+
+- CSS Module에서 사용하면 편한 이유! - `bind()`
+  - classnames의 `bind()` 메서드를 이용하면 사용할 때 `styles.클래스이름` 의 형식을 사용할 필요가 없어짐
+  - styles를 `bind()` 메서드의 인자로 넣고 변수에 저장하기
+  - 변수에서 갖다쓰기 - `cx(’클래스’, ‘클래스’)`
+
+      ```jsx
+      import classNames from 'classnames/bind'
+      
+      const cx = classNames.bind(styles);
+      function CssModule() {
+        return (
+          <div className={cx('wrapper', 'inverted')}>
+            안녕하세요 저는 <span className="something">CSS Module!</span>
+          </div>
+        );
+      }
+      
+      export default CssModule;
       ```
