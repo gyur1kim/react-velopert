@@ -1,0 +1,38 @@
+/* CSS 파일일 때 */
+/*.wrapper {*/
+/*    background: black;*/
+/*    padding: 1rem;*/
+/*    color: white;*/
+/*    font-size: 2rem;*/
+/*}*/
+
+/*.inverted {*/
+/*    color: black;*/
+/*    background: white;*/
+/*    border: 1px solid black*/
+/*}*/
+
+/*:global .something{*/
+/*    font-weight: 800;*/
+/*    color: aqua;*/
+/*}*/
+
+.wrapper {
+  background: black;
+  padding: 1rem;
+  color: white;
+  font-size: 2rem;
+  &.inverted {
+    color: black;
+    background: white;
+    border: 1px solid black
+  }
+}
+
+// global CSS를 작성하고 싶다면 :global{}로 감싸기
+:global {
+  .something {
+    font-weight: 800;
+    color: aqua;
+  }
+}
