@@ -1,6 +1,7 @@
 import './App.css';
 import SassComponent from "./SassComponent";
 import CSSModule from "./CSSModule";
+import StyledComponents from "./StyledComponents";
 
 function App() {
   return (
@@ -8,6 +9,8 @@ function App() {
       <SassComponent />
       <hr/>
       <CSSModule />
+      <hr />
+      <StyledComponents />
     </div>
   );
 }
