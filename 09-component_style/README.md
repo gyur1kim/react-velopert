@@ -184,3 +184,53 @@ export default CssModule;
       
       export default CssModule;
       ```
+
+## 9.4 styled-components
+
+- 자바스크립트 파일 안에 스타일을 선언하는 방식 == CSS-in-JS
+- CSS-in-JS 라이브러리 중 개발자들이 가장 선호하는 `styled-components` 라이브러리
+- `npm install styled-components`
+- 불러오기 : `import styled from ‘styled-compoennts’`
+
+    ```jsx
+    import styled, { css } from 'styled-components';
+    
+    const Box = styled.div`
+      background: ${props => props.color || 'blue'};
+      padding: 1rem;
+      display: flex;
+    `;
+    ```
+
+  - element 생성하기
+    - element를 만들 땐 `styled.태그종류` 의 방식으로 컴포넌트를 생성한다
+    - 태그 종류가 유동적거나 특정 컴포넌트 자체에 스타일링 해주고 싶다면 styled 함수의 인자로 전달하면 된다.
+      - `styled(’input’)`
+  - style에서 props 조회하기
+    - `${props ⇒ }` 를 통해 props로 전달된 값을 참조할 수 있다.
+  - props에 따른 조건부 스타일링
+
+      ```jsx
+      ${props => props.inverted && 
+        css`
+          background: none;
+          border: 2px solid white;
+          color: white;
+          &:hover {
+            background: white;
+            color: black;
+          }
+        `
+      };
+      ```
+
+    - 이 때 `css` 를 넣는 이유는, *tagged template literal*을 사용하기 위해서다
+    - `css` 가 없어도 동작은 하지만, 함수를 받아 사용하지 못하기 때문에 해당 부분에서는 **props를 사용할 수 없**게 된다.
+
+### 백틱… 이것은 tagged template literal
+
+[Template literals (Template strings) - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+
+- template literal에서 더 발전된 형태이다
+- 함수와 사용하는 데, 첫 번째 인자는 문자열이 담긴 리스트, 나머지 인자는 `${}` 안의 값
+- Tagged template literal을 사용하면 템플릿 사이사이에 들어가는 자바스크립트 객체나 함수의 원본 값을 그대로 추출할 수 있음!
