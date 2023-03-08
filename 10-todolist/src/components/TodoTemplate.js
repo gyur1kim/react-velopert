@@ -3,7 +3,7 @@
 // children으로 내부 JSX를 props로 받아와 렌더링해준다.
 
 import React from 'react';
-import './TodoTemplate.scss'
+import '../style/TodoTemplate.scss'
 
 function TodoTemplate({ children }) {
   return (

@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { MdAdd } from 'react-icons/md';
-import './TodoInsert.scss'
+import '../style/TodoInsert.scss'
 
 function TodoInsert() {
   return (
