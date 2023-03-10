@@ -2,15 +2,17 @@
 // todo 객체를 props로 받아와 상태에 따라 다른 UI를 보여줌
 
 import React from 'react';
+import cn from 'classnames'
 import { MdCheckBoxOutlineBlank, MdCheckBox, MdRemoveCircleOutline } from "react-icons/md";
 import '../style/TodoListItem.scss'
 
-function TodoListItem() {
+function TodoListItem({ todo }) {
+  const { text, checked } = todo
   return (
     <div className="TodoListItem">
-      <div className="checkbox">
-        <MdCheckBoxOutlineBlank />
-        <div className="text">할 일</div>
+      <div className={ cn('checkbox', { checked })}>
+        { checked? <MdCheckBox/> : <MdCheckBoxOutlineBlank /> }
+        <div className="text">{ text }</div>
       </div>
       <div className="remove">
         <MdRemoveCircleOutline />

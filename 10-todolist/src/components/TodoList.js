@@ -5,14 +5,11 @@ import React from 'react';
 import TodoListItem from "./TodoListItem";
 import '../style/TodoList.scss'
 
-function TodoList() {
+function TodoList({ todos }) {
   return (
     <div className="TodoList">
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
-      <TodoListItem />
+      { todos.map(todo =>
+        <TodoListItem key={todo.id} todo={todo} />)}
     </div>
   );
 }
