@@ -5,7 +5,7 @@ import React, { useState, useCallback } from 'react';
 import { MdAdd } from 'react-icons/md';
 import '../style/TodoInsert.scss'
 
-function TodoInsert() {
+function TodoInsert({ onInsert }) {
   const [value, setValue] = useState('');
 
   // useCallback을 사용하는 이유는?
@@ -15,8 +15,15 @@ function TodoInsert() {
     setValue(e.target.value);
   }, []);
 
+  // 왜 value를 써야하는 거야?
+  const onSubmit = useCallback(e => {
+    e.preventDefault();
+    onInsert(value);
+    setValue('');
+  }, [onInsert, value])
+
   return (
-    <form className="TodoInsert">
+    <form className="TodoInsert" onSubmit={onSubmit}>
       <input type="text" placeholder="할 일을 입력하세요" value={value} onChange={onChange} />
       <button type="submit">
         <MdAdd />
