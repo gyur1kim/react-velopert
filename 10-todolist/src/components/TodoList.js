@@ -5,11 +5,11 @@ import React from 'react';
 import TodoListItem from "./TodoListItem";
 import '../style/TodoList.scss'
 
-function TodoList({ todos, onRemove }) {
+function TodoList({ todos, onRemove, onToggle }) {
   return (
     <div className="TodoList">
       { todos.map(todo =>
-        <TodoListItem key={todo.id} todo={todo} onRemove={onRemove} />)}
+        <TodoListItem key={todo.id} todo={todo} onRemove={onRemove} onToggle={onToggle} />)}
     </div>
   );
 }
