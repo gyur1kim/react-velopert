@@ -45,7 +45,7 @@ function App() {
   // useRef를 이용해 id를 나타내는 이유
   // useState는 값이 변하면 재렌더링됨
   // 하지만 id가 하나 는다고 해서 굳이 컴포넌트를 재렌더링 할 필요는 없기 때문
-  const nextId = useRef(4);
+  const nextId = useRef(2501);
 
   const onInsert = useCallback(text => {
     const todo = {
@@ -53,15 +53,15 @@ function App() {
       text,
       checked: false
     };
-    setTodos(todos.concat(todo));
+    setTodos(prev => prev.concat(todo));
     nextId.current++;
   }, [todos]);
   const onRemove = useCallback(id => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos(prev => prev.filter(todo => todo.id !== id));
   }, [todos]);
 
   const onToggle = useCallback(id => {
-    setTodos(todos.map(todo => todo.id === id? {...todo, checked: !todo.checked} : todo))
+    setTodos(prev => prev.map(todo => todo.id === id? {...todo, checked: !todo.checked} : todo))
   }, [todos])
 
   return (
