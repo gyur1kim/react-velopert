@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useReducer, useRef, useCallback } from 'react';
 import TodoTemplate from "./components/TodoTemplate";
 import TodoInsert from "./components/TodoInsert";
 import TodoList from "./components/TodoList";
@@ -14,6 +14,19 @@ function createBulkTodos() {
   }
 
   return array;
+}
+
+function todoReducer(todos, action) {
+  switch (action.type) {
+    case "INSERT":
+      return todos.concat(action.todo);
+    case "REMOVE":
+      return todos.filter(todo => todo.id !== action.id)
+    case "TOGGLE":
+      return todos.map(todo => todo.id === action.id? {...todo, checked: !todo.checked } : todo);
+    default:
+      return todos;
+  }
 }
 
 function App() {
@@ -40,7 +53,8 @@ function App() {
   * createBulkTodos() => 리렌더링 될 때마다 함수가 호출됨
   * createBulkTodos   => 컴포넌트가 처음 렌더링될 때만 함수가 실행됨.
   */
-  const [todos, setTodos] = useState(createBulkTodos)
+  // const [todos, setTodos] = useState(createBulkTodos)
+  const [todos, dispatch] = useReducer(todoReducer, undefined, createBulkTodos);
 
   // useRef를 이용해 id를 나타내는 이유
   // useState는 값이 변하면 재렌더링됨
@@ -53,15 +67,15 @@ function App() {
       text,
       checked: false
     };
-    setTodos(prev => prev.concat(todo));
+    dispatch({ type: "INSERT", todo });
     nextId.current++;
   }, [todos]);
   const onRemove = useCallback(id => {
-    setTodos(prev => prev.filter(todo => todo.id !== id));
+    dispatch({ type: "REMOVE", id })
   }, [todos]);
 
   const onToggle = useCallback(id => {
-    setTodos(prev => prev.map(todo => todo.id === id? {...todo, checked: !todo.checked} : todo))
+    dispatch({type: "TOGGLE", id })
   }, [todos])
 
   return (
