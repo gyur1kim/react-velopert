@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+## 11.3 느려지는 원인 분석
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**리렌더링**은 언제 발생할까?
 
-## Available Scripts
+1. 자신이 전달받은 **props**가 변할 때
+2. 자신의 **state**가 바뀔 때
+3. **부모 컴포넌트**가 리렌더링될 때
+4. **forceUpdate 함수**가 실행될 때
 
-In the project directory, you can run:
+`예제`에서는….
 
-### `npm start`
+- App 컴포넌트의 **state가 바뀜** (todos 중 하나를 checked로 변경)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  ⇒ App컴포넌트(**부모 컴포넌트**)가 변경되므로 TodoList(**자식 컴포넌트**)도 **변경**됨
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  ⇒ 딱 한 개만 변경했지만, 자식 컴포넌트 1부터 2500까지 **전부 리렌더링**됨
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 11.4 React.memo를 사용하여 컴포넌트 성능 최적화
 
-### `npm run build`
+- 클래스형 컴포넌트 : `shouldComponentUpdate`
+- 함수형 컴포넌트 : `React.memo`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+컴포넌트의 `props`가 변하지 않았다면, 리렌더링 하지 않도록 설정
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 11.5 함수가 바뀌지 않게 하기
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 함수가 계속 만들어지는 것을 방지하는 방법
+  - `useState`의 **함수형 업데이트** 기능을 사용하기
+  - `useReducer`를 사용하기
 
-### `npm run eject`
+### useState의 함수형 업데이트
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- setTodos를 사용할 때 새로운 상태를 넣는 것이 아닌, 상태를 **어떻게 업데이트** 해줄지 정의해주는 **업데이트 함수**
+- == **함수형 업데이트**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### useReducer 사용하기
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- reducer 생성
+  - state, action으로 인자를 받음
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    ```jsx
+    function todoReducer(todos, action) {
+      switch (action.type) {
+        case "INSERT":
+          return todos.concat(action.todo);
+        case "REMOVE":
+          return todos.filter(todo => todo.id !== action.id)
+        case "TOGGLE":
+          return todos.map(todo => todo.id === action.id? {...todo, checked: !todo.checked } : todo);
+        default:
+          return todos;
+      }
+    ```
 
-## Learn More
+- `useReducer()`
+  - [값, 값을 변경할 때 사용할 함수]
+  - `useReducer(리듀서 함수, 초기값, 초기값)`
+    - **세 번째 인자**에 함수를 넣었는데, 이렇게 하면 컴포넌트가 **처음 렌더링될 때만** 함수가 **호출**된다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    ```jsx
+    const [todos, dispatch] = useReducer(todoReducer, undefined, createBulkTodos);
+    ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 함수 생성
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    ```jsx
+    const onInsert = useCallback(text => {
+      const todo = {
+        id: nextId.current,
+        text,
+        checked: false
+      };
+      dispatch({ type: "INSERT", todo });
+      nextId.current++;
+    }, [todos]);
+    const onRemove = useCallback(id => {
+      dispatch({ type: "REMOVE", id })
+    }, [todos]);
+    
+    const onToggle = useCallback(id => {
+      dispatch({type: "TOGGLE", id })
+    }, [todos])
+    ```
