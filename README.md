@@ -109,3 +109,17 @@
 
 </div>
 </details>
+
+
+<details>
+<summary><h3>11장. 컴포넌트 성능 최적화</h3></summary>
+<div markdown="1">       
+
+- 11-3. [느려지는 원인 분석](https://github.com/gyur1kim/react-velopert/tree/master/10-todolist/README.md#113-느려지는-원인-분석)
+
+- 11-4. [React.memo를 사용하여 컴포넌트 성능 최적화](https://github.com/gyur1kim/react-velopert/tree/master/10-todolist/README.md#114-reactmemo를-사용하여-컴포넌트-성능-최적화)
+
+- 11-5. [함수가 바뀌지 않게 하기](https://github.com/gyur1kim/react-velopert/tree/master/10-todolist/README.md#115-함수가-바뀌지-않게-하기)
+
+</div>
+</details>
