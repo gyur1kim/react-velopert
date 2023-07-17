@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# 12.0 immer 라이브러리의 필요성
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- **불변성을 유지**하며 **상태를 업데이트** 하는 것은 중요하다!
 
-## Available Scripts
+  - 이에 사용되는 `전개 연산자`, `배열의 내장 함수` 
 
-In the project directory, you can run:
+  - 하지만 배열/객체가 **엄청나게 깊어지면**! 불변성을 유지하면서 업데이트하는 것이 힘들어진다.
 
-### `npm start`
+  ```javascript
+  const object = {
+    somewhere: {
+      deep: {
+        inside: 3,
+        array: [1, 2, 3, 4]
+      },
+      bar: 2,
+    },
+    foo: 1
+  }
+  ```
+  
+  - 위의 객체에서, 불변성을 유지하며 `somewhere.deep.inside`의 값을 `4`로 변경해보자
+  ```javascript
+  let nextObject = {
+    ...object,
+    somewhere: {
+      ...object.somewhere,
+      deep: {
+        ...object.somewhere.deep,
+        inside: 4
+      } 
+    }
+  }
+  ```
+  
+  - 또는 `somewhere.deep.array`에 5를 추가해보자
+  ```javascript
+  let nextObject = {
+    ...object,
+    somewhere: {
+      ...object.somewhere,
+      deep: {
+        ...object.somewhere.deep,
+        array: object.somewhere.deep.array.concat(5)
+      }
+    }
+  }
+  ```
+  
+- **전개 연산자**를 사용함으로써 기존의 가지고 있던 다른 값은 유지하며 원하는 값을 새로 지정함!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 하지만 **가독성이 좋지 못하고 번거롭다**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `immer` 라이브러리를 사용하면, 구조가 복잡한 객체도 **매우 쉽고 짧은 코드**를 사용하여 불변성을 유지하며 업데이트 할 수 있다.
