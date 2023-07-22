@@ -55,8 +55,6 @@
 
 - `immer` 라이브러리를 사용하면, 구조가 복잡한 객체도 **매우 쉽고 짧은 코드**를 사용하여 불변성을 유지하며 업데이트 할 수 있다.
 
-
-
 # 12.1 immer 사용하기
 
 ```javascript
@@ -98,3 +96,21 @@ const nextState = produce(originalState, draft => {
     draft.splice(draft.findIndex(t => t.id === 1), 1);
   })
   ```
+
+### useState의 함수형 업데이트와 immer 함께쓰기
+
+- `produce()`의 **첫 번째 파라미터**가 **함수** 형태라면 **업데이트 함수**를 반환한다
+  
+  ```javascript
+  const update = produce(draft => {
+    draft.value = 2;
+  });
+  const originalState = {
+    value: 1,
+    foo: 'bar',
+  };
+  const nextState = update(originalState);
+  console.log(nextState);
+  ```
+
+- immer의 속성과 useState의 함수형 업데이트를 함께 활용하면 코드를 더욱 깔끔하게 만들 수 있다.

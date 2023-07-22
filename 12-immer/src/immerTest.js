@@ -29,4 +29,12 @@ const nextState = produce(originalState, draft => {
   draft.splice(draft.findIndex(t => t.id === 1), 1);
 })
 
-console.log(nextState)
+const update = produce(draft => {
+  draft.value = 2;
+});
+const originalState2 = {
+  value: 1,
+  foo: 'bar',
+};
+const nextState2 = update(originalState2);
+console.log(nextState2);
