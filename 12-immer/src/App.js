@@ -1,6 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import {useCallback, useRef, useState} from "react";
+import {produce} from 'immer';
+
 
 function App() {
   const nextId = useRef(1);
@@ -13,10 +14,20 @@ function App() {
   // form에 입력되는 값을 받는 함수
   const onChange = useCallback(e => {
     const {name, value} = e.target;
-    setForm({
-      ...form,
-      [name]: [value]
-    });
+
+    // setForm({
+    //   ...form,
+    //   [name]: [value]
+    // });
+
+    // produce를 이용
+    // setForm(produce(form, draft => {
+    //   draft[name] = value;
+    // }))
+
+    setForm(produce(draft => {
+      draft[name] = value;
+    }))
   }, [form]);
 
   // form의 값을 data에 넣는 함수
@@ -29,10 +40,18 @@ function App() {
     };
 
     // data에 info값 넣기
-    setData({
-      ...data,
-      array: data.array.concat(info)
-    });
+    // setData({
+    //   ...data,
+    //   array: data.array.concat(info)
+    // });
+
+    // setData(produce(data, draft => {
+    //   draft.array.push(info)
+    // }))
+
+    setData(produce(draft => {
+      draft.array.push(info);
+    }))
 
     // form 초기화
     setForm({
@@ -45,10 +64,18 @@ function App() {
 
   // data의 항목 삭제하기
   const onRemove = useCallback(id => {
-    setData({
-      ...data,
-      array: data.array.filter(info => info.id !== id)
-    });
+    // setData({
+    //   ...data,
+    //   array: data.array.filter(info => info.id !== id)
+    // });
+
+    // setData(produce(data, draft => {
+    //   draft.array.splice(draft.array.findIndex(info => info.id === id-1), 1);
+    // }))
+
+    setData(produce(draft => {
+      draft.array.splice(draft.array.findIndex(info => info.id === id), 1)
+    }))
   }, [data]);
 
   return (
