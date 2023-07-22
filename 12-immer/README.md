@@ -100,6 +100,8 @@ const nextState = produce(originalState, draft => {
 ### useState의 함수형 업데이트와 immer 함께쓰기
 
 - `produce()`의 **첫 번째 파라미터**가 **함수** 형태라면 **업데이트 함수**를 반환한다
+
+- 따라서 **useState**의 업데이트 함수에 **immer에서 반환된 업데이트 함수**를 넣는 원리다.
   
   ```javascript
   const update = produce(draft => {
