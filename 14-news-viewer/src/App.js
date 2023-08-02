@@ -3,6 +3,8 @@ import axios from "axios";
 
 function App() {
   const [data, setData] = useState(null);
+  const NEWS_API = process.env.REACT_APP_NEWS_API;
+  console.log(NEWS_API)
 
   // then 이용
   // const onClick = () => {
@@ -14,7 +16,7 @@ function App() {
   // async/await 이용
   const onClick = async () => {
     try {
-      const response = await axios.get('https://jsonplaceholder.typicode.com/todos/1');
+      const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${NEWS_API}`);
       setData(response.data)
     }
     catch (e) {
