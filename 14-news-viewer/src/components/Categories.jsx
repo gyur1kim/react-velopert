@@ -52,11 +52,11 @@ const Category = styled(NavLink)`
   white-space: pre;
   text-decoration: none;
   
-  & :hover {
+  &:hover {
     color: #495057;
   }
   
-  .active { 
+  &.active { 
     font-weight: 600;
     border-bottom: 2px solid #22b8cf;
     color: #22b8cf;
@@ -76,7 +76,7 @@ function Categories() {
       { categories.map(cate =>
         <Category
           key={cate.name}
-          className={(isActive) => isActive? "active" : ""}
+          className={({isActive}) => isActive ? "active" : ""}
           // exact={cate.name === "all"}
           to={cate.name === "all" ? "/" : `/${cate.name}`}
         >
