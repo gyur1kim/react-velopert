@@ -187,3 +187,15 @@ runTask();
 
 - `try`, `catch` 구문 실행
 - promise의 결과가 resolve이면 try 내부 실행, reject면 catch를 실행하고 종료한다.
+
+# 14.2 axios로 API 호출해서 데이터 받아오기
+
+- `axios`
+  
+  - HTTP 요청을 Promise 기반으로 처리한다
+
+# 14.8 커스텀 Hook
+
+- 프로젝트의 다양한 곳에서 사용될 수 있는 **유틸 함수들**
+
+- `src/lib` 디렉터리 안에 작성한다
