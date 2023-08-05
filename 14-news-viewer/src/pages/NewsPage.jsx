@@ -6,7 +6,6 @@ import {useLocation} from "react-router-dom";
 function NewsPage() {
   const location = useLocation();
   const category = location.pathname.split('/')[1]
-  // console.log(category)
 
   return (
     <>
