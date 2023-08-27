@@ -98,3 +98,44 @@ function App() {
   );
 }
 ```
+
+# 15.3 동적 Context 사용하기
+
+- Context의 값을 동적으로 수정하려면?
+  
+  ```javascript
+  const ColorContext = createContext({ state: { color: "black", subColor: "red"},
+                                       actions: {
+                                         setColor: () => {},
+                                         setSubColor: () => {}
+                                       }
+  });
+  
+  const ColorProvider = ({children}) => {
+    const [color, setColor] = useState("black");
+    const [subColor, setSubColor] = useState("red");
+  
+    const value = {
+      state: {color, subColor},
+      action: {setColor, setSubColor}
+    }
+  
+    return <ColorContext.Provider value={value}>{children}</ColorContext.Provider>
+  }
+  
+  // const ColorConsumer = ColorContext.Consumer와 같은 의미
+  const { Consumer: ColorConsumer } = ColorContext;
+  
+  export {ColorProvider, ColorConsumer};
+  export default ColorContext;
+  ```
+  
+  1. **ColorProvider**라는 **새로운 컴포넌트**를 작성
+     
+     - 렌더링하는 값은 `ColorContext.Provider`
+     
+     - value값은 useState를 이용함
+  
+  2. **createContext** 사용 시 **기본값 수정**
+     
+     - createContext의 기본값은 실제 Provider의 value에 넣는 객체의 형태와 일치시켜 주는 것이 좋다
