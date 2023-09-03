@@ -139,3 +139,33 @@ function App() {
   2. **createContext** 사용 시 **기본값 수정**
      
      - createContext의 기본값은 실제 Provider의 value에 넣는 객체의 형태와 일치시켜 주는 것이 좋다
+
+# 15.4 Consumer 대신 Hook/static contextType 사용하기
+
+## 15.4.1 useContext Hook
+
+- useContext hook
+
+- 함수형 컴포넌트에서 Context를 편하게 사용할 수 있다.
+
+```javascript
+const { state } = useContext(ColorContext);
+```
+
+- Render props 패턴이 불편하다면, useContext hook을 사용해 훨씬 편하게 context의 값을 조회할 수 있다.
+
+## 15.4.2 static contextType
+
+- 클래스형 컴포넌트에서 Context를 좀 더 쉽게 사용하고 싶을 때 사용한다
+
+# 15.5 정리
+
+**기존의 컴포넌트**
+
+- 컴포넌트 간 상태를 교류해야 할 땐 부모->자식 흐름으로 props를 통해 전달
+
+**Context API**
+
+- 프로젝트의 컴포넌트 구조가 간단하다면, 굳이 사용하지 않아도 됨
+
+- 전역적으로 여기저기서 사용되는 상태가 있고, 컴포넌트의 개수가 많다면 사용해보세요!
